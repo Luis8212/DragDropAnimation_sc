@@ -22,12 +22,12 @@ class DragAndDropViews : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDragAndDropViewsBinding.inflate(layoutInflater)
 
-         setContentView(binding.root)
+        setContentView(binding.root)
         binding.holder01.setOnDragListener(arrowDragListener)
         binding.holder02.setOnDragListener(arrowDragListener)
         binding.holder03.setOnDragListener(arrowDragListener)
         binding.holder04.setOnDragListener(arrowDragListener)
-        binding.holder05.setOnDragListener(arrowDragListener)
+        binding.holder05.setOnDragListener(arrowDragListener)//
 
 
         binding.upMoveBtn.setOnLongClickListener(onLongClickListener)
