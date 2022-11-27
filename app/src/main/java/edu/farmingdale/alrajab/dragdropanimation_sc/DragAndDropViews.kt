@@ -20,7 +20,7 @@ class DragAndDropViews : AppCompatActivity() {
     lateinit var binding: ActivityDragAndDropViewsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDragAndDropViewsBinding.inflate(layoutInflater)
+         binding = ActivityDragAndDropViewsBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         binding.holder01.setOnDragListener(arrowDragListener)
