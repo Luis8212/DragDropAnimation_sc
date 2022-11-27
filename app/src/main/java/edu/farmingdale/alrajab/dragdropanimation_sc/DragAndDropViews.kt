@@ -4,9 +4,11 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.graphics.Canvas
 import android.graphics.Point
+import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.style.BackgroundColorSpan
 import android.util.Log
 import android.view.DragEvent
 import android.view.View
@@ -23,11 +25,34 @@ class DragAndDropViews : AppCompatActivity() {
         setContentView(binding.root)
         binding.holder01.setOnDragListener(arrowDragListener)
         binding.holder02.setOnDragListener(arrowDragListener)
+        binding.holder03.setOnDragListener(arrowDragListener)
+        binding.holder04.setOnDragListener(arrowDragListener)
+        binding.holder05.setOnDragListener(arrowDragListener)
 
 
         binding.upMoveBtn.setOnLongClickListener(onLongClickListener)
+        binding.forwardMoveBtn.setOnLongClickListener(onLongClickListener)
+        binding.backMoveBtn.setOnLongClickListener(onLongClickListener)
+        binding.downMoveBtn.setOnLongClickListener(onLongClickListener)
+        binding.btnstart.setOnClickListener {animRocket()}
 
 
+      //  binding.rocketImage.setOnClickListener {
+        //    animRocket() }
+
+
+    }
+    private fun animRocket(){
+        binding.rocketImage.setBackgroundResource(R.drawable.animationrockets)
+        val rocketAnimation = binding.rocketImage.background as AnimationDrawable
+
+        //binding.rocketImage.setOnClickListener {
+            if (rocketAnimation.isRunning) {
+                rocketAnimation.stop()
+            } else {
+                rocketAnimation.start()
+            }
+       // }
 
     }
 
@@ -56,6 +81,8 @@ class DragAndDropViews : AppCompatActivity() {
 
 
 
+
+
     private val arrowDragListener = View.OnDragListener { view, dragEvent ->
         (view as? ImageView)?.let {
             when (dragEvent.action) {
@@ -63,9 +90,11 @@ class DragAndDropViews : AppCompatActivity() {
                     return@OnDragListener true
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
+                    view.setBackgroundResource(R.drawable.highlightrectangle)
                     return@OnDragListener true
                 }
                 DragEvent.ACTION_DRAG_EXITED-> {
+                    view.setBackgroundResource(R.drawable.myrectangle)
                     return@OnDragListener true
                 }
                 // No need to handle this for our use case.
@@ -73,18 +102,26 @@ class DragAndDropViews : AppCompatActivity() {
                     return@OnDragListener true
                 }
 
+
                 DragEvent.ACTION_DROP -> {
+
+                    view.setBackgroundResource(R.drawable.myrectangle)
                     // Read color data from the clip data and apply it to the card view background.
                     val item: ClipData.Item = dragEvent.clipData.getItemAt(0)
                     val lbl = item.text.toString()
-                    Log.d("BCCCCCCCCCCC", "NOTHING > >  " + lbl)
                    when(lbl.toString()){
                        "UP"->view.setImageResource( R.drawable.ic_baseline_arrow_upward_24)
+                       "DOWN"->view.setImageResource(R.drawable.ic_baseline_arrow_downward_24)
+                       "FORWARD"->view.setImageResource(R.drawable.ic_baseline_arrow_forward_24)
+                       "BACK"->view.setImageResource(R.drawable.ic_baseline_arrow_back_24)
+
                    }
                     return@OnDragListener true
                 }
+
                 DragEvent.ACTION_DRAG_ENDED -> {
                     return@OnDragListener true
+
                 }
                 else -> return@OnDragListener false
             }
